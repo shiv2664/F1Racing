@@ -1,6 +1,7 @@
 package com.shivam.f1racing
 
-import androidx.compose.foundation.layout.padding
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,6 +12,7 @@ import com.shivam.f1racing.ui.bottomNavItems
 import com.shivam.f1racing.ui.screens.HomeScreen
 
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun AppNavigation(modifier: Modifier) {
 
@@ -26,6 +28,7 @@ fun AppNavigation(modifier: Modifier) {
             ){
                 HomeScreen(innerPadding)
             }
+
         }
     }
 
