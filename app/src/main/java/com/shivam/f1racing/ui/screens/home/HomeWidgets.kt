@@ -1,8 +1,9 @@
-package com.shivam.f1racing.ui.screens
+package com.shivam.f1racing.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,7 +36,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -53,6 +53,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.shivam.f1racing.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.Unit
 
 
 @Composable
@@ -170,6 +171,7 @@ fun GetPro(innerPadding: PaddingValues) {
 }
 
 @Composable
+@Preview
 fun FirstItem(innerPadding: PaddingValues = PaddingValues(0.dp)) {
     ConstraintLayout(
         modifier = Modifier
@@ -392,6 +394,7 @@ fun FirstItem(innerPadding: PaddingValues = PaddingValues(0.dp)) {
 }
 
 @Composable
+@Preview
 fun SecondItem(innerPadding: PaddingValues = PaddingValues(0.dp)) {
     Column(
         modifier = Modifier
@@ -429,7 +432,7 @@ fun SecondItem(innerPadding: PaddingValues = PaddingValues(0.dp)) {
 
 
 @Composable
-fun RaceEvents() {
+fun RaceEvents(onNavigateToDetail:()->Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -443,7 +446,10 @@ fun RaceEvents() {
                 .height(130.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .background(Color(0xFF044331))
-                .padding(12.dp)
+                .clickable{
+                    onNavigateToDetail()
+                }
+                .padding(12.dp),
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 Row(
@@ -624,7 +630,7 @@ fun RaceEvents() {
     }
 }
 
-@Preview
+
 @Composable
 fun LewisImage() {
     Box(

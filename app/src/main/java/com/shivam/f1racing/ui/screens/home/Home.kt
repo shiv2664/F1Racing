@@ -1,4 +1,4 @@
-package com.shivam.f1racing.ui.screens
+package com.shivam.f1racing.ui.screens.home
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -21,10 +22,13 @@ import androidx.compose.ui.unit.dp
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-@Preview
-fun HomeScreen(innerPadding: PaddingValues = PaddingValues(0.dp)) {
+fun HomeScreen(innerPadding: PaddingValues = PaddingValues(0.dp), onNavigateToDetail: () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxSize().background(Color.Black).verticalScroll(rememberScrollState()),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = innerPadding.calculateBottomPadding()),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start,
     ) {
@@ -32,9 +36,8 @@ fun HomeScreen(innerPadding: PaddingValues = PaddingValues(0.dp)) {
             AutoPager(innerPadding)
             GetPro(innerPadding)
         }
-        RaceEvents()
+        RaceEvents(onNavigateToDetail)
         LewisImage()
-
 
 
         /* val driver = Driver(
