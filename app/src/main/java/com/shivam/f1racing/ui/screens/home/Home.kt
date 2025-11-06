@@ -56,20 +56,6 @@ fun HomeScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start,
     ) {
-        /* val driver = Driver(
-               driverId = "max-verstappen",
-               podiums = 11,
-               points = 321,
-               poles = 7,
-               position = 3,
-               teamId = "red-bull",
-               wins = 5,
-               firstName = "Max",
-               lastName = "Verstappen",
-               driverCode = "VER",
-               teamName = "Red Bull",
-               racingNumber = 1
-           )*/
         Box {
             AutoPager(innerPadding, detailState)
             GetPro(innerPadding)

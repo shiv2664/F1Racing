@@ -51,6 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.loader.content.Loader
@@ -58,6 +59,7 @@ import com.shivam.f1racing.R
 import com.shivam.f1racing.data.NetworkResult
 import com.shivam.f1racing.ui.data.DriverDetails
 import com.shivam.f1racing.ui.data.RaceDetails
+import com.shivam.f1racing.ui.data.Session
 import com.shivam.f1racing.ui.data.Schedule
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -590,48 +592,57 @@ fun RaceEvents(onNavigateToDetail: (Schedule?) -> Unit, raceState: NetworkResult
                             .height(130.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        // Red Distance Box
-                        Row(
+
+                        Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .weight(1f)
                                 .clip(RoundedCornerShape(16.dp))
-                                .background(Color.Black),
-                            verticalAlignment = Alignment.CenterVertically
+                                .background(Color.Black)
                         ) {
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth(0.4f)
                                     .height(80.dp)
                                     .background(Color(0xFFF91D26)),
-                                contentAlignment = Alignment.Center
+                                contentAlignment = Alignment.CenterStart
+                            ){}
+
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(horizontal = 12.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
+
                                 Image(
                                     painter = painterResource(id = R.drawable.distance),
                                     contentDescription = "Distance Logo",
                                     modifier = Modifier.size(24.dp)
                                 )
+
+                                Row(
+                                    verticalAlignment = Alignment.Bottom
+                                ) {
+                                    Text(
+                                        text = "7015.3",
+                                        color = Color.White,
+                                        fontFamily = FontFamily(Font(R.font.space_regular)),
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+
+                                    Text(
+                                        text = "km",
+                                        color = Color.White.copy(alpha = 0.7f),
+                                        fontSize = 12.sp,
+                                        fontFamily = FontFamily(Font(R.font.space_regular)),
+                                        fontWeight = FontWeight.SemiBold,
+                                        modifier = Modifier.padding(start = 2.dp, bottom = 2.dp)
+                                    )
+                                }
                             }
-                            Row(
-                                modifier = Modifier.padding(start = 8.dp),
-                                verticalAlignment = Alignment.Bottom
-                            ) {
-                                Text(
-                                    text = "7015.3",
-                                    color = Color.White,
-                                    fontFamily = FontFamily(Font(R.font.space_regular)),
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Text(
-                                    text = "km",
-                                    color = Color.White.copy(alpha = 0.7f),
-                                    fontSize = 12.sp,
-                                    fontFamily = FontFamily(Font(R.font.space_regular)),
-                                    fontWeight = FontWeight.SemiBold,
-                                    modifier = Modifier.padding(top = 3.dp, start = 2.dp)
-                                )
-                            }
+
                         }
                         // Blue Education Box
                         Box(
