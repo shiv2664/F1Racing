@@ -766,6 +766,7 @@ fun RaceEvents(onNavigateToDetail: (Schedule?) -> Unit, raceState: NetworkResult
 
 
 @Composable
+@Preview
 fun LewisImage() {
     val context=LocalContext.current
     Box(
@@ -785,7 +786,7 @@ fun LewisImage() {
         Image(
             painter = painterResource(R.drawable.lewis_image),
             contentDescription = "",
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(360.dp)
