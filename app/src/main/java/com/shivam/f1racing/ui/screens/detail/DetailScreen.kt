@@ -9,24 +9,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shivam.f1racing.R
+import com.shivam.f1racing.ui.data.Schedule
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 @Composable
-@Preview
-fun DetailScreen(innerPadding: PaddingValues = PaddingValues(0.dp)) {
+fun DetailScreen(innerPadding: PaddingValues = PaddingValues(0.dp), schedule: Schedule?) {
 
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.Black)
         .padding(bottom = innerPadding.calculateBottomPadding())) {
-        UpcomingRaceDetails(innerPadding)
+        UpcomingRaceDetails(innerPadding,schedule)
 
         Column(modifier = Modifier.fillMaxWidth().wrapContentHeight().padding(16.dp)) {
             Text(
-                text = "São Paulo  Circuit",
+                text = "${schedule?.raceName}",
                 fontFamily = FontFamily(Font(R.font.space_regular)),
                 color = Color.White,
                 fontWeight = FontWeight.Bold,

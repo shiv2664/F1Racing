@@ -23,15 +23,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import com.shivam.f1racing.R
+import com.shivam.f1racing.ui.data.Session
+import com.shivam.f1racing.ui.data.Schedule
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 @Composable
-@Preview
-fun UpcomingRaceDetails(innerPadding: PaddingValues = PaddingValues(0.dp)) {
+fun UpcomingRaceDetails(innerPadding: PaddingValues = PaddingValues(0.dp), schedule: Schedule?) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -57,19 +63,17 @@ fun UpcomingRaceDetails(innerPadding: PaddingValues = PaddingValues(0.dp)) {
             )
         }
 
-
-
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row {
+        Row (verticalAlignment = Alignment.CenterVertically ){
 
-            Column {
+            Column(modifier = Modifier.weight(1f)) {
 
                 Column(
                     modifier = Modifier
                 ) {
                     Text(
-                        text = "Round 12",
+                        text = "${schedule?.round}",
                         fontFamily = FontFamily(Font(R.font.space_regular)),
                         color = Color.White,
                         fontSize = 16.sp,
@@ -79,8 +83,8 @@ fun UpcomingRaceDetails(innerPadding: PaddingValues = PaddingValues(0.dp)) {
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
-                        text = "São Paulo GP",
-                        fontFamily = FontFamily(Font(R.font.space_regular)),
+                        text = "${schedule?.raceName}",
+                        fontFamily = FontFamily(Font(R.font.montserat_bold)),
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 28.sp
@@ -93,7 +97,7 @@ fun UpcomingRaceDetails(innerPadding: PaddingValues = PaddingValues(0.dp)) {
                         fontSize = 14.sp
                     )
                     Text(
-                        text = "23 - 30 April",
+                        text = formatDateRange(schedule?.raceStartTime?.toLong()?:0,schedule?.raceEndTime?.toLong()?:0),
                         fontFamily = FontFamily(Font(R.font.space_regular)),
                         color = Color.White,
                         fontSize = 14.sp
@@ -114,9 +118,15 @@ fun UpcomingRaceDetails(innerPadding: PaddingValues = PaddingValues(0.dp)) {
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    CountdownUnit("07", "Days")
-                    CountdownUnit("16", "Hours")
-                    CountdownUnit("42", "Minutes")
+
+                    val remaining = getTimeRemaining(schedule?.raceStartTime?.toLong()?:0)
+                    val dayText = "${remaining.first}"
+                    val hourText = "${remaining.second}"
+                    val minText = "${remaining.third}"
+
+                    CountdownUnit(dayText, "Days")
+                    CountdownUnit(hourText, "Hours")
+                    CountdownUnit(minText, "Minutes")
                 }
             }
 
@@ -126,6 +136,7 @@ fun UpcomingRaceDetails(innerPadding: PaddingValues = PaddingValues(0.dp)) {
                 modifier = Modifier
                     .size(200.dp)
                     .padding(start = 8.dp)
+                    .weight(1f)
             )
         }
 
@@ -152,3 +163,31 @@ fun CountdownUnit(value: String, label: String) {
         )
     }
 }
+
+fun formatDateRange(start: Long, end: Long): String {
+    val zone = ZoneId.systemDefault()
+    val formatter = DateTimeFormatter.ofPattern("dd MMM")
+
+    val startDate = Instant.ofEpochSecond(start).atZone(zone).format(formatter)
+    val endDate = Instant.ofEpochSecond(end).atZone(zone).format(formatter)
+
+    return "$startDate to $endDate"
+}
+
+fun getTimeRemaining(startTime: Long): Triple<Long, Long, Long> {
+    val now = System.currentTimeMillis() / 1000
+    var diff = startTime - now
+
+    if (diff <= 0) return Triple(0, 0, 0)
+
+    val days = diff / (24 * 3600)
+    diff %= (24 * 3600)
+
+    val hours = diff / 3600
+    diff %= 3600
+
+    val minutes = diff / 60
+
+    return Triple(days, hours, minutes)
+}
+

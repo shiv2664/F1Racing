@@ -8,6 +8,8 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
+
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -68,8 +70,15 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.compose.navigation)
     implementation(libs.coil.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.androidx.constraintlayout.compose)
+
+    implementation (libs.retrofit)
+    implementation (libs.retrofit.gson.convertor)
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+
 
 
     testImplementation(libs.junit)
