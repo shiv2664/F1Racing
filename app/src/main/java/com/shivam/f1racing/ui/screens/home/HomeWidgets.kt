@@ -237,11 +237,11 @@ fun FirstItem(
                             }
                             .fillMaxWidth()
                             .width(380.dp)
-                            .height(400.dp)
+                            .height(450.dp)
                             .offset(x = 100.dp)
                             .padding(
                                 start = innerPadding.calculateStartPadding(LayoutDirection.Ltr),
-                                top = innerPadding.calculateTopPadding()
+                                top = innerPadding.calculateTopPadding()+50.dp
                             ),
                         contentScale = ContentScale.Crop
                     )
@@ -437,21 +437,45 @@ fun FirstItem(
 
 }
 
+@Preview
+@Composable
+fun FirstItemPreview() {
+    val driver = com.shivam.f1racing.ui.data.Driver(
+        driverCode = "VER",
+        driverId = "max_verstappen",
+        firstName = "Max",
+        lastName = "Verstappen",
+        podiums = 10,
+        points = 400,
+        poles = 10,
+        position = 1,
+        racingNumber = 1,
+        teamId = "red_bull",
+        teamName = "Red Bull Racing",
+        wins = 15
+    )
+    val driverDetails = com.shivam.f1racing.ui.data.DriverDetails(drivers = listOf(driver))
+    val detailState = com.shivam.f1racing.data.NetworkResult.Success(driverDetails)
+ FirstItem(
+        innerPadding = PaddingValues(0.dp),
+        detailState = detailState
+    )
+}
+
 @Composable
 fun SecondItem(innerPadding: PaddingValues = PaddingValues(0.dp)) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(400.dp)
+            .height(450.dp)
             .background(Color.Black),
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             modifier = Modifier
-                .width(274.dp)
-                .height(274.dp)
-                .padding(innerPadding),
+                .width(350.dp)
+                .height(350.dp),
             painter = painterResource(id = R.drawable.insta_image),
             contentDescription = ""
         )
@@ -471,6 +495,12 @@ fun SecondItem(innerPadding: PaddingValues = PaddingValues(0.dp)) {
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun SecondItemPreview() {
+    SecondItem()
 }
 
 
